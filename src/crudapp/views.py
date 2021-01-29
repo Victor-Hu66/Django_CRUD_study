@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .forms import StudentForm
 from .models import Student
@@ -39,3 +39,18 @@ def student_delete (request, id):
         student.delete()
         return redirect("list")
     return render(request, 'crudapp/student_delete.html')
+
+def student_update(request, id):
+    student = get_object_or_404(Student, id=id) 
+    form = StudentForm(instance=student)
+    if request.method == "POST":
+        form = StudentForm(request.POST, instance=student)
+        if form.is_valid():
+            form.save()
+            return redirect("list")
+    context = {
+        'student' : student,
+        'form' : form
+    }
+    
+    return render(request, "crudapp/student_update.html", context)
