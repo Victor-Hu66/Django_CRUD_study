@@ -1,0 +1,12 @@
+{% extends 'crudapp/base.html' %}
+
+
+{% block content %}
+    <form action="" method="POST">
+        <p>Are you sure</p>
+        {% csrf_token %}
+        <input type="submit" value="yes">
+        <a href="{% url 'list' %}">No</a>
+    </form>
+{% endblock content %}
+    

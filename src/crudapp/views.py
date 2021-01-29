@@ -32,3 +32,10 @@ def student_detail(request, id):
         'student' : student
     }
     return render(request, "crudapp/student_detail.html", context)
+
+def student_delete (request, id):
+    student = Student.objects.get(id=id)
+    if request.method == 'POST':
+        student.delete()
+        return redirect("list")
+    return render(request, 'crudapp/student_delete.html')
