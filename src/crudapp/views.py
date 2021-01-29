@@ -25,3 +25,10 @@ def student_list(request):
         'students' : students
     }
     return render( request , "crudapp/student_list.html", context)
+
+def student_detail(request, id):
+    student = Student.objects.get(id=id)
+    context = {
+        'student' : student
+    }
+    return render(request, "crudapp/student_detail.html", context)
